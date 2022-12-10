@@ -20,7 +20,7 @@ def index():
 # prediction function
 # Memprediksi input dari form user
 def ValuePredictor(to_predict_list):
-    to_predict = np.array(to_predict_list).reshape(1, 2)
+    to_predict = np.array(to_predict_list).reshape(1, 6)
     loaded_model = pickle.load(
         open("./model/model.pkl", "rb"))  # load the model
     # predict the values using loded model
@@ -34,8 +34,12 @@ def result():
         name = request.form['name']
         attack_score = request.form['attack_score']
         defend_score = request.form['defend_score']
+        hp = request.form['HP']
+        sp_atk = request.form['sp_attack_score']
+        sp_defense = request.form['sp_defend_score']
+        speed = request.form['speeds']
 
-        to_predict_list = list(map(int, [attack_score, defend_score]))
+        to_predict_list = list(map(int, [hp, attack_score, defend_score, sp_atk, sp_defense,speed]))
         result = ValuePredictor(to_predict_list)
 
         if int(result) == 0:
